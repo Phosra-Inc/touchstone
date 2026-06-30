@@ -59,6 +59,7 @@ export function seedFromPkcs8Pem(pem: string): Uint8Array {
 // because Node's createPrivateKey({format:"jwk"}) requires the `x` field for OKP
 // keys, which is unknown at seed-derivation time.
 export function ed25519PublicFromSeed(seed: Uint8Array): Uint8Array {
+  if (seed.length !== 32) throw new RangeError(`ed25519PublicFromSeed: seed must be 32 bytes, got ${seed.length}`);
   const pkcs8 = new Uint8Array(ED25519_PKCS8_PREFIX.length + 32);
   pkcs8.set(ED25519_PKCS8_PREFIX, 0);
   pkcs8.set(seed, ED25519_PKCS8_PREFIX.length);
