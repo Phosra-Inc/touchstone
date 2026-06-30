@@ -2,7 +2,7 @@ import type { EnclaveUnderTest } from "./contract/enclave.js";
 
 export interface ProbeResult {
   assertion_id: string;
-  verdict: "pass" | "fail" | "error";
+  verdict: "pass" | "fail" | "error" | "pending";
   detail: string;
   evidence?: unknown;
 }
