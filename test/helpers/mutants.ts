@@ -40,6 +40,11 @@ export function mutantA5RawHashLeaves(): EnclaveUnderTest {
 }
 
 // A7 mutant: ignores attestation failure and emits a signal anyway.
+// Relies on the reference enclave defaulting to a VALID attestation
+// (attestationValid = true at construction): the no-op setUpstreamAttestation
+// swallows the probe's "invalid" call, so ref stays valid and classify still
+// emits a signal. The A7 discrimination test (mutant -> verdict "fail") would
+// itself fail if this precondition ever broke, so the anti-theater bar holds.
 export function mutantA7ProcessesContent(): EnclaveUnderTest {
   const ref = makeReferenceEnclave();
   return { ...wrap(ref), setUpstreamAttestation: () => {} };
