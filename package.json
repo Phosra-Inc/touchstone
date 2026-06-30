@@ -1,0 +1,22 @@
+{
+  "name": "@ocss/provider-harness",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": { "ocss-harness": "./dist/cli.js" },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "harness": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@ocss/ts": "file:vendor/ocss-ts-0.0.0.tgz"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
+    "vitest": "^1.6.1",
+    "tsx": "^4.19.0"
+  }
+}
