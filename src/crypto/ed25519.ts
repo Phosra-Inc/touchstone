@@ -1,6 +1,6 @@
-// Vendored verbatim from @ocss/ts src/crypto.ts (ed25519Sign + DER prefixes) — kept
-// byte-identical via test/parity.test.ts. ed25519Verify/ed25519PublicFromSeed use the
-// same prefixes. Re-sync via scripts/refresh-ocss-ts.sh; never hand-edit.
+// Extracted from @ocss/ts src/crypto.ts: ed25519Sign + DER prefixes (merged with
+// ed25519Verify/ed25519PublicFromSeed). Kept byte-identical via test/parity.test.ts.
+// Re-sync via scripts/refresh-ocss-ts.sh; never hand-edit.
 import { createPrivateKey, createPublicKey, sign as nodeSign, verify as nodeVerify } from "node:crypto";
 
 const ED25519_SPKI_PREFIX = Uint8Array.from([

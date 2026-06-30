@@ -1,4 +1,4 @@
-// Vendored verbatim from @ocss/ts src/vocab.ts (the closed enums the harness uses) —
+// Extracted from @ocss/ts src/vocab.ts (subset: HarmClass, EnvelopeType, TierLabel) —
 // kept identical via test/parity.test.ts. Re-sync via scripts/refresh-ocss-ts.sh.
 
 // §4.4 — content enum (closed).

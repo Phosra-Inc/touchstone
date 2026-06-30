@@ -1,4 +1,4 @@
-// Vendored verbatim from @ocss/ts src/envelope/types.ts (the wire types the harness uses).
+// Extracted from @ocss/ts src/envelope/types.ts (the wire types the harness uses).
 export interface Outer {
   ocss_version: string;
   intermediary_audience: string;

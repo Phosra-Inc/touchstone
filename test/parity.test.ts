@@ -2,7 +2,11 @@ import { describe, it, expect } from "vitest";
 import { createHash } from "node:crypto";
 import { marshal as inlinedMarshal } from "../src/crypto/canon.js";
 import { ed25519Sign as inlinedSign } from "../src/crypto/ed25519.js";
-import { HarmClass as inlinedHarm } from "../src/crypto/vocab.js";
+import {
+  HarmClass as inlinedHarm,
+  EnvelopeType as inlinedEnvelopeType,
+  TierLabel as inlinedTierLabel,
+} from "../src/crypto/vocab.js";
 import { marshal as upstreamMarshal } from "@ocss/ts/canon";
 import { ed25519Sign as upstreamSign } from "@ocss/ts";
 import * as upstreamVocab from "@ocss/ts/vocab";
@@ -36,5 +40,13 @@ describe("parity: inlined crypto === vendored @ocss/ts", () => {
   it("HarmClass values match upstream", () => {
     expect(Object.values(inlinedHarm).sort())
       .toEqual(Object.values(upstreamVocab.HarmClass).sort());
+  });
+  it("EnvelopeType values match upstream", () => {
+    expect(Object.values(inlinedEnvelopeType).sort())
+      .toEqual(Object.values(upstreamVocab.EnvelopeType).sort());
+  });
+  it("TierLabel values match upstream", () => {
+    expect(Object.values(inlinedTierLabel).sort())
+      .toEqual(Object.values(upstreamVocab.TierLabel).sort());
   });
 });
