@@ -1,9 +1,10 @@
 # @openchildsafety/provider-harness
 
-Independent OCSS conformance harness. A **verifying-agency** runs it against a provider
-enclave, then signs the resulting `conformance_attestation` with its own Ed25519 key. This
-project is intentionally independent of Phosra (the CA model: a verifier cannot accredit a
-service it operates). The OCSS crypto it uses (JCS canon + Ed25519 + the closed vocab) is
+Independent OCSS conformance harness. A **verifying-agency** — the reference one is named
+**Touchstone** (`did:ocss:touchstone`) — runs it against a provider enclave, then signs the
+resulting `conformance_attestation` with its own Ed25519 key. This project is the *tooling*;
+Touchstone is the *agency* that runs it, and is intentionally independent of Phosra (the CA
+model: a verifier cannot accredit a service it operates). The OCSS crypto it uses (JCS canon + Ed25519 + the closed vocab) is
 inlined under `src/crypto/` behind the single `src/crypto-adapter.ts` seam, so the package has
 **zero runtime dependencies**; a dev-only parity test keeps the inlined copies byte-identical to
 the OCSS reference implementation (`@openchildsafety/ocss`).

@@ -8,6 +8,12 @@ The dependency chain for every item below is:
 > implementers) build to it → the harness adds the conformance probe → an independent
 > verifying-agency runs the harness and signs the attestation.**
 
+*The independent verifying-agency in that chain has a name: **Touchstone** (`did:ocss:touchstone`) —
+the rating/accreditation body that runs the harness and signs the `conformance_attestation`.
+"Verifying-agency" is the role; Touchstone is the party. Naming it does not make it independent:
+Touchstone only carries weight once a party OCSS's steward (Phosra) does not control operates it —
+the same CA-model rule that recurs in the verifying-agency section below.*
+
 So your deliverables are **specs, wire formats, governance, and golden vectors** — not running
 code. The harness already passes A1, A2, A5, A7 against these; the three below (A3, A4, A6) plus
 the verifying-agency role are blocked on you first.
@@ -215,7 +221,8 @@ census has no `verifying-agency` role. To make attestations bind to the *live* r
    (a verifying-agency MUST NOT also hold a `classifier-accredited` entry).
 3. **The independence governance:** the rule (already in the role spec) that the standard's steward
    (Phosra) **cannot be the verifying-agency for its own provider partners** — and the process for
-   admitting genuinely independent verifying-agencies.
+   admitting genuinely independent verifying-agencies such as **Touchstone** (`did:ocss:touchstone`),
+   the named holder of the first such entry.
 
 **Why this matters for PCAs and platforms.** The role is also what finally lets the Trust List
 *distinguish the PCAs*. Until it lands — and until its sibling `enforcement_agent_role` lands — the

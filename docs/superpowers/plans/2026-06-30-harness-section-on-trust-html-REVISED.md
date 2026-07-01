@@ -16,7 +16,7 @@
 - **Additive only:** insert ONE `<section>` between the close of the "Self-attest, or pass the suite" section and the `<!-- 4 · D5 TRUST LIST model -->` comment (the "One signed file…" section). Change nothing else.
 - **Reuse existing kit.css classes ONLY** — `section`, `wrap`, `shead`, `eyebrow`, `grid g2`, `card`, `card--sunk`, `k`, `mt8`/`mt16`/`mt24`/`mt40`, `chip-row`, `chip`, `chip chip--ok`, `chip chip--accent`, `dot`, `muted`, `note`. NO new classes, NO `<pre>`/`<code>`/`<kbd>` (the page has none), NO `<style>`, NO `kit.css` edit (so no `?v=` bump).
 - **Honest status:** A1/A2/A5/A7 passable; A3/A4/A6 pending with reasons; v0 verify is against the fixture trust-list shape, not the live registry. No overclaim.
-- **The sample sig is the real verified artifact** (truncated for display is acceptable on this clean page; the full artifact + reproducible generator are Appendix A of the superseded plan / the harness repo): full value `ed25519:S0ySVrEc32i9ioYmOWHZBWPnRqdzg6MK-N9rsitxwINB_07iE4-kTehEH7hS3v5-P_e4HhKxviSnxrVIQG0MDQ`; display truncation `ed25519:S0ySVrEc…IQG0MDQ`.
+- **The sample sig is the real verified artifact** (truncated for display is acceptable on this clean page; the reproducible generator is Appendix A). The attestation is `attested_by: did:ocss:touchstone`, `key_id: touchstone-2026-07` — Touchstone is the named verifying-agency. Full sig value `ed25519:-Wi-DxQta76YjT5VQjIsMvtgt6FbYehVARu7IRzckLxZ0RJLZDHMkVu6RZ_rUy76CsX0Km_4_AFSNaNhkb93Bw`; display truncation `ed25519:-Wi-DxQt…hkb93Bw`.
 - **Links:** npm `https://www.npmjs.com/package/@openchildsafety/provider-harness`; source `https://github.com/jakekklinvex/ocss-provider-harness`.
 - **Production deploy is gated** (staging-first; never deploy without Jake's go-ahead).
 
@@ -79,7 +79,7 @@ Insert on the blank line just before the `<!-- 4 · D5 TRUST LIST model -->` com
       <div class="card">
         <span class="k">open · MIT · zero deps</span>
         <h3 class="mt8" style="font-family:var(--serif);font-weight:500;font-size:20px">The harness</h3>
-        <p><span class="k">@openchildsafety/provider-harness</span> runs the assertions against an enclave; a verifying-agency then signs the result with its own key — the CA model, where the steward cannot certify its own partners. Four verbs: <span class="k">run</span> · <span class="k">attest</span> · <span class="k">sign</span> · <span class="k">verify</span>.</p>
+        <p><span class="k">@openchildsafety/provider-harness</span> runs the assertions against an enclave; <span class="k">Touchstone</span> — the independent verifying-agency — then signs the result with its own key, the CA model where the steward cannot certify its own partners. Four verbs: <span class="k">run</span> · <span class="k">attest</span> · <span class="k">sign</span> · <span class="k">verify</span>.</p>
         <div class="chip-row mt16">
           <span class="chip chip--accent"><span class="dot"></span><a href="https://www.npmjs.com/package/@openchildsafety/provider-harness" rel="noopener" style="color:inherit;text-decoration:none">npm</a></span>
           <span class="chip chip--accent"><span class="dot"></span><a href="https://github.com/jakekklinvex/ocss-provider-harness" rel="noopener" style="color:inherit;text-decoration:none">source</a></span>
@@ -88,7 +88,7 @@ Insert on the blank line just before the `<!-- 4 · D5 TRUST LIST model -->` com
       </div>
     </div>
 
-    <p class="muted mt24" style="max-width:760px;font-size:15px">A signed <span class="k">conformance_attestation</span> is one file anyone verifies offline — the same shape as the trust list below: attested by a verifying-agency, scoped to <span class="k">a1 a2 a5 a7</span>, sealed with <span class="k" style="word-break:break-all">ed25519:S0ySVrEc…IQG0MDQ</span>. It lists what passed and what is pending, so a partial pass is honest, never a silent gap.</p>
+    <p class="muted mt24" style="max-width:760px;font-size:15px">A signed <span class="k">conformance_attestation</span> is one file anyone verifies offline — the same shape as the trust list below: attested by <span class="k">Touchstone</span> (the verifying-agency), scoped to <span class="k">a1 a2 a5 a7</span>, sealed with <span class="k" style="word-break:break-all">ed25519:-Wi-DxQt…hkb93Bw</span>. It lists what passed and what is pending, so a partial pass is honest, never a silent gap.</p>
 
     <div class="note mt24">Honest status: A1, A2, A5, A7 pass today; A3, A4, A6 are pending the infrastructure named above. And v0 verifies against the harness's own fixture trust-list shape, not yet the live registry — the verifying-agency role is not seated yet. The mechanism is real and shipping; the live binding lands with it.</div>
   </div>
@@ -100,7 +100,7 @@ Insert on the blank line just before the `<!-- 4 · D5 TRUST LIST model -->` com
 ```bash
 F=apps/ocss-review/public/trust.html
 # the truncated sig + the new section id present once:
-grep -c 'ed25519:S0ySVrEc…IQG0MDQ' "$F"
+grep -c 'ed25519:-Wi-DxQt…hkb93Bw' "$F"
 grep -c 'id="run-the-suite"' "$F"
 # every class used in the new block already appears elsewhere in the file (no new classes):
 for c in 'section' 'wrap' 'shead' 'eyebrow' 'grid g2' 'card card--sunk' 'card' 'chip-row' 'chip chip--ok' 'chip chip--accent' 'note' 'muted'; do echo -n "$c: "; grep -c "class=\"$c\"" "$F"; done

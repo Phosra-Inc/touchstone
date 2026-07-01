@@ -10,6 +10,11 @@ already done and shipping; everything below is *additive* to the existing harnes
 > **OCSS defines the format → Phosra builds it → you add the probe + a mutant + a reference-enclave
 > behavior → an independent verifying-agency runs you and signs the attestation.**
 
+*That verifying-agency has a name: **Touchstone** (`did:ocss:touchstone`). You are Touchstone's
+tooling — the harness it runs — but you are not Touchstone: the operator identity and key belong to
+the independent party that holds the `verifying-agency` entry, never to Phosra. Keep that line clean
+in the live-registry section below.*
+
 Each probe follows the harness's established pattern (the **anti-theater bar**): a pure
 `(enclave) => ProbeResult`, proven to **pass** against the reference enclave **and fail** against a
 deliberately-broken mutant. You also own the `EnclaveUnderTest` contract that providers code to — so
@@ -209,10 +214,11 @@ the role (OCSS defining it). Today `src/attestation/verify.ts` checks attestatio
   with no new crypto.
 
 **Independence (not a code task, but yours to honor):** this app is the **tooling**; the
-**verifying-agency entity that runs it must be a party Phosra does not control** — and, for the same
-reason, not the PCA vendor verifying its own enclave. When you wire the live path, the operator
-identity + key belong to that independent verifier, not Phosra and not the provider under test — that
-is the whole reason the attestation is worth anything.
+**verifying-agency entity that runs it — Touchstone (`did:ocss:touchstone`) — must be a party Phosra
+does not control**, and, for the same reason, not the PCA vendor verifying its own enclave. When you
+wire the live path, the operator identity + key belong to Touchstone as that independent verifier,
+not Phosra and not the provider under test — that is the whole reason the attestation is worth
+anything.
 
 **Done when:** `ocss-harness verify` validates a real attestation against the live census Trust List,
 all five gates, no fixtures.

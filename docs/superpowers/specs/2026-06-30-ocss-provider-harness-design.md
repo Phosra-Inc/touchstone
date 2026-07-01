@@ -10,7 +10,8 @@
 ## 1. Summary
 
 An independent **OCSS conformance harness**: a TypeScript library + CLI that a
-**verifying-agency** runs against a classifier provider's enclave to attest the enclave
+**verifying-agency** (the reference one is named **Touchstone**, `did:ocss:touchstone`) runs
+against a classifier provider's enclave to attest the enclave
 behaves as the OCSS standard requires. It defines the provider-conformance **contract**,
 ships a correct **reference enclave**, executes the **behavioral assertions** A1/A2/A5/A7
 (the four passable today), declares A3/A4/A6 as `pending`, and assembles a

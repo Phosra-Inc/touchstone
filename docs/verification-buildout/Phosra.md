@@ -9,6 +9,11 @@ verifying-agency running the harness.
 > **OCSS defines the format → you build it in the census + the enclave/SDK → the harness probes it
 > → an independent verifying-agency signs the attestation.**
 
+*That independent verifying-agency has a name: **Touchstone** (`did:ocss:touchstone`). Your census
+mints and serves its `verifying-agency` Trust-List entry (below), and your provider partners' entries
+resolve against Touchstone's signature — but per the CA model you **operate the census, not
+Touchstone**: a party you do not control must hold and exercise it, or the attestation means nothing.*
+
 For each item below, the **OCSS prerequisite** is named first (you can prototype against a draft,
 but the wire form is OCSS's to freeze), then **your build**, then how the **harness** will verify
 it. A1, A2, A5, A7 already pass against what you've shipped — these three (A3, A4, A6) plus the
@@ -206,8 +211,8 @@ independence governance.
    (non-renewal ⇒ expiry) and the **conflict-of-interest** bar (a verifying-agency entry may not
    coexist with a `classifier-accredited` entry for the same DID).
 3. **Mint + serve the entry.** Mint the `verifying-agency` Trust-List entry **for an independent
-   party** (per the spec, *not* Phosra itself for its own providers) and serve it on
-   `/.well-known/ocss/trust-list` with the `role` tag.
+   party** — this is **Touchstone**'s entry (`did:ocss:touchstone`), *not* Phosra itself for its own
+   providers — and serve it on `/.well-known/ocss/trust-list` with the `role` tag.
 
 **The PCA-shaped gap to leave room for.** The same `role` field is where PCAs eventually get tagged.
 There is **no `enforcement_agent_role` yet** — the #1 P0 gap — so Qustodio, Bark, Aura and the rest
