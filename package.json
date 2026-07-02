@@ -1,6 +1,6 @@
 {
   "name": "@openchildsafety/provider-harness",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Independent OCSS verifying-agency conformance harness: probe a provider enclave against assertions A1/A2/A5/A7 and build/sign/verify a conformance_attestation.",
   "type": "module",
   "license": "MIT",
@@ -15,9 +15,9 @@
   "files": ["dist", "README.md", "LICENSE"],
   "publishConfig": { "access": "public" },
   "keywords": ["ocss", "child-safety", "conformance", "attestation", "verifying-agency"],
-  "repository": { "type": "git", "url": "git+https://github.com/jakekklinvex/ocss-provider-harness.git" },
-  "homepage": "https://github.com/jakekklinvex/ocss-provider-harness#readme",
-  "bugs": { "url": "https://github.com/jakekklinvex/ocss-provider-harness/issues" },
+  "repository": { "type": "git", "url": "git+https://github.com/Phosra-Inc/touchstone.git" },
+  "homepage": "https://github.com/Phosra-Inc/touchstone#readme",
+  "bugs": { "url": "https://github.com/Phosra-Inc/touchstone/issues" },
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc -p tsconfig.test.json",

@@ -17,7 +17,7 @@
 - **Reuse existing kit.css classes ONLY** — `section`, `wrap`, `shead`, `eyebrow`, `grid g2`, `card`, `card--sunk`, `k`, `mt8`/`mt16`/`mt24`/`mt40`, `chip-row`, `chip`, `chip chip--ok`, `chip chip--accent`, `dot`, `muted`, `note`. NO new classes, NO `<pre>`/`<code>`/`<kbd>` (the page has none), NO `<style>`, NO `kit.css` edit (so no `?v=` bump).
 - **Honest status:** A1/A2/A5/A7 passable; A3/A4/A6 pending with reasons; v0 verify is against the fixture trust-list shape, not the live registry. No overclaim.
 - **The sample sig is the real verified artifact** (truncated for display is acceptable on this clean page; the reproducible generator is Appendix A). The attestation is `attested_by: did:ocss:touchstone`, `key_id: touchstone-2026-07` — Touchstone is the named verifying-agency. Full sig value `ed25519:-Wi-DxQta76YjT5VQjIsMvtgt6FbYehVARu7IRzckLxZ0RJLZDHMkVu6RZ_rUy76CsX0Km_4_AFSNaNhkb93Bw`; display truncation `ed25519:-Wi-DxQt…hkb93Bw`.
-- **Links:** npm `https://www.npmjs.com/package/@openchildsafety/provider-harness`; source `https://github.com/jakekklinvex/ocss-provider-harness`.
+- **Links:** npm `https://www.npmjs.com/package/@openchildsafety/provider-harness`; source `https://github.com/Phosra-Inc/touchstone`.
 - **Production deploy is gated** (staging-first; never deploy without Jake's go-ahead).
 
 ---
@@ -82,7 +82,7 @@ Insert on the blank line just before the `<!-- 4 · D5 TRUST LIST model -->` com
         <p><span class="k">@openchildsafety/provider-harness</span> runs the assertions against an enclave; <span class="k">Touchstone</span> — the independent verifying-agency — then signs the result with its own key, the CA model where the steward cannot certify its own partners. Four verbs: <span class="k">run</span> · <span class="k">attest</span> · <span class="k">sign</span> · <span class="k">verify</span>.</p>
         <div class="chip-row mt16">
           <span class="chip chip--accent"><span class="dot"></span><a href="https://www.npmjs.com/package/@openchildsafety/provider-harness" rel="noopener" style="color:inherit;text-decoration:none">npm</a></span>
-          <span class="chip chip--accent"><span class="dot"></span><a href="https://github.com/jakekklinvex/ocss-provider-harness" rel="noopener" style="color:inherit;text-decoration:none">source</a></span>
+          <span class="chip chip--accent"><span class="dot"></span><a href="https://github.com/Phosra-Inc/touchstone" rel="noopener" style="color:inherit;text-decoration:none">source</a></span>
           <span class="chip"><span class="dot" style="background:var(--t3);box-shadow:none"></span>v0.1 · 4 of 7</span>
         </div>
       </div>
