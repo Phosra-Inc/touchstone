@@ -3,3 +3,8 @@ dist/
 *.log
 .DS_Store
 .superpowers/
+# Infisical credentials — never commit (primary copy lives at ~/.infisical.env, outside any repo)
+.infisical.env
+.infisical.local
+*.infisical.token
+infisical-creds*
