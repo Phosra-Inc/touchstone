@@ -2,6 +2,7 @@
 export type { EnclaveUnderTest, ClassifyInput, ClassifyOutput, MinimizationAttestation, UpstreamAttestation, Envelope } from "./contract/enclave.js";
 export { ASSERTIONS, type AssertionMeta } from "./assertions/registry.js";
 export { makeReferenceEnclave } from "../reference-enclave/index.js";
+export { makeLiveEnclave, normalizeEnclaveUrl, type LiveEnclaveOptions } from "./live-enclave.js";
 export { runSuite } from "./suite.js";
 export { renderReport } from "./report.js";
 export type { ProbeResult, Probe } from "./probe.js";
