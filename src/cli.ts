@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
+import type { EnclaveUnderTest } from "./contract/enclave.js";
 import { makeReferenceEnclave } from "../reference-enclave/index.js";
+import { makeLiveEnclave } from "./live-enclave.js";
 import { runSuite } from "./suite.js";
 import { renderReport } from "./report.js";
 import { buildAttestation } from "./attestation/build.js";
@@ -11,21 +13,35 @@ function flag(args: string[], name: string, def?: string): string | undefined {
   const i = args.indexOf(name);
   return i >= 0 ? args[i + 1] : def;
 }
-function pickEnclave(args: string[]) {
-  if (flag(args, "--enclave", "ref") !== "ref") throw new Error("v0 supports only --enclave ref");
+
+// Enclave selection. Two target modes:
+//   --enclave-url <https url>  -> probe a REAL provider enclave over HTTP (live-target).
+//   --enclave ref              -> the bundled reference enclave (default; unchanged).
+// The live-target leg is the independent-assessor tool of OCSS §5.9 run under the
+// open assessor market of §5.4: the same A1/A2/A5/A7 assertions, aimed at a provider's
+// own endpoint instead of a mock the harness also ships.
+async function selectEnclave(args: string[]): Promise<EnclaveUnderTest> {
+  const url = flag(args, "--enclave-url");
+  if (url) {
+    const timeout = flag(args, "--timeout-ms");
+    return makeLiveEnclave(url, timeout ? { timeoutMs: Number(timeout) } : {});
+  }
+  if (flag(args, "--enclave", "ref") !== "ref") {
+    throw new Error("v0 supports only --enclave ref, or --enclave-url <https url> for a live target");
+  }
   return makeReferenceEnclave();
 }
 
 async function main() {
   const [cmd, ...args] = process.argv.slice(2);
   if (cmd === "run") {
-    const e = pickEnclave(args);
+    const e = await selectEnclave(args);
     const results = await runSuite(e);
     process.stdout.write(renderReport(results, e.buildInfo()));
     process.exit(results.some((r) => r.verdict === "fail" || r.verdict === "error") ? 1 : 0);
   }
   if (cmd === "attest") {
-    const e = pickEnclave(args);
+    const e = await selectEnclave(args);
     const results = await runSuite(e);
     const att = buildAttestation(results, {
       attested_by: flag(args, "--attested-by")!,
@@ -55,7 +71,12 @@ async function main() {
     }
     return;
   }
-  process.stderr.write("usage: ocss-harness <run|attest|sign|verify> [flags]\n");
+  process.stderr.write(
+    "usage: provider-harness <run|attest|sign|verify> [--enclave ref | --enclave-url <https url>] [flags]\n",
+  );
   process.exit(2);
 }
-main();
+main().catch((err) => {
+  process.stderr.write(`error: ${(err as Error).message}\n`);
+  process.exit(1);
+});

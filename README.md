@@ -17,14 +17,36 @@ the OCSS reference implementation (`@openchildsafety/ocss`).
 ## Install
 ```bash
 npm install @openchildsafety/provider-harness
-npx ocss-harness run --enclave ref          # probe the reference enclave + print the report
+npx provider-harness run --enclave ref                 # probe the bundled reference enclave
+npx provider-harness run --enclave-url https://enclave.example.com   # probe a REAL enclave (live-target)
 ```
+
+### CLI name
+The canonical bin is **`provider-harness`**. `ocss-harness` is kept as a back-compat alias
+(both resolve to the same entrypoint), reconciling the name Phosra's accreditation docs use
+(`npx -p @openchildsafety/provider-harness provider-harness`) with the published package.
+
+## Target modes
+- **`--enclave ref`** (default) — the bundled reference enclave; makes A1/A2/A5/A7 pass. Used to
+  self-test the harness and demo the report.
+- **`--enclave-url <https url>`** — the **live-target** mode: run the same A1–A7 suite against a
+  real provider enclave over HTTP. This is the independent-assessor tool of OCSS **§5.9** ("the
+  verifier tool" that ship-gates v1.0), operated under the open assessor market of **§5.4** — the
+  harness aims at a provider's own endpoint, not a mock it also authored. HTTPS is required for any
+  non-loopback host; plain `http` is tolerated only for `localhost`/`127.0.0.1` (local fixtures).
+
+  The target enclave MUST implement:
+  ```
+  GET  {url}/buildinfo  -> { "build_hash": string, "suite_version": string }
+  POST {url}/classify   (JSON ClassifyInput + { "upstream_attestation": <state> })
+                        -> ClassifyOutput  ({ "kind": "signal" | "rejected" | "suspended", ... })
+  ```
 
 ## Develop (from a clone)
 ```bash
 npm install
 npx vitest run                              # full test suite
-npm run harness -- run    --enclave ref     # probe + report
+npm run harness -- run    --enclave ref     # probe + report (bin: provider-harness / ocss-harness)
 npm run harness -- attest --enclave ref --attested-by did:ocss:va \
   --liability-scope-ref https://ocss.example/liability#v0 --passed-at 2026-06-30T00:00:00Z > att.json
 npm run harness -- sign   --key va.pem --key-id va-2026-06 att.json > signed.json
