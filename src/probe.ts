@@ -8,9 +8,15 @@ export interface ProbeResult {
 }
 export type Probe = (e: EnclaveUnderTest) => Promise<ProbeResult>;
 
-export async function runAssertion(id: string, probe: Probe, e: EnclaveUnderTest): Promise<ProbeResult> {
+/** Generic over the target so enclave probes (Probe) and platform-oauth
+ *  probes (PlatformProbe) share the same throw->error containment. */
+export async function runAssertion<T>(
+  id: string,
+  probe: (target: T) => Promise<ProbeResult>,
+  target: T,
+): Promise<ProbeResult> {
   try {
-    return await probe(e);
+    return await probe(target);
   } catch (err) {
     return { assertion_id: id, verdict: "error", detail: `probe threw: ${(err as Error).message}` };
   }

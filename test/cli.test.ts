@@ -23,6 +23,6 @@ describe("cli", () => {
       "--liability-scope-ref", "https://x/liability#v0", "--passed-at", "2026-06-30T00:00:00Z"]);
     const att = JSON.parse(r.out);
     expect(att.assertions_passed).toEqual(["a1","a2","a5","a7"]);
-    expect(att.assertions_pending).toEqual(["a3","a4","a6"]);
+    expect(att.assertions_pending).toEqual(["a3","a4","a6","a8"]);
   }, 30000);
 });
