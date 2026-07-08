@@ -55,15 +55,15 @@ describe("live-enclave target mode", () => {
   it("fetches build info from the live endpoint", async () => {
     const e = await makeLiveEnclave(fixture.url);
     expect(e.buildInfo().build_hash).toMatch(/^ref-/);
-    expect(e.buildInfo().suite_version).toBe("ocss-provider-harness/v0");
+    expect(e.buildInfo().suite_version).toBe("ocss-provider-harness/v1");
   });
 
-  it("runs A1/A2/A5/A7 green against a conformant live enclave; A3/A4/A6 pending", async () => {
+  it("runs A1/A2/A5/A7 green against a conformant live enclave; A3/A4/A6/A8 pending", async () => {
     const e = await makeLiveEnclave(fixture.url);
     const results = await runSuite(e);
     const byId = Object.fromEntries(results.map((r) => [r.assertion_id, r.verdict]));
     expect(byId).toMatchObject({ a1: "pass", a2: "pass", a5: "pass", a7: "pass" });
-    expect(byId).toMatchObject({ a3: "pending", a4: "pending", a6: "pending" });
+    expect(byId).toMatchObject({ a3: "pending", a4: "pending", a6: "pending", a8: "pending" });
   });
 
   it("carries the upstream-attestation state over the wire (A7 suspends)", async () => {

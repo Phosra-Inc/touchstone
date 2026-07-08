@@ -1,7 +1,7 @@
 {
   "name": "@openchildsafety/provider-harness",
-  "version": "0.1.3",
-  "description": "Independent OCSS verifying-agency conformance harness: probe a provider enclave against assertions A1/A2/A5/A7 and build/sign/verify a conformance_attestation.",
+  "version": "0.2.0",
+  "description": "Independent OCSS verifying-agency conformance harness: probe a provider enclave against assertions A1/A2/A5/A7 (and a platform's OAuth profiles leg against A8) and build/sign/verify a conformance_attestation.",
   "type": "module",
   "license": "MIT",
   "engines": {

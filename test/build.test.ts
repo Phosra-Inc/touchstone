@@ -15,7 +15,7 @@ describe("buildAttestation", () => {
   it("records passed and pending ids from reference results", async () => {
     const att = buildAttestation(await runSuite(makeReferenceEnclave()), META);
     expect(att.assertions_passed).toEqual(["a1","a2","a5","a7"]);
-    expect(att.assertions_pending).toEqual(["a3","a4","a6"]);
+    expect(att.assertions_pending).toEqual(["a3","a4","a6","a8"]);
     expect(att.spec).toBe("ocss-provider-harness/v0");
     expect(att.attested_by).toBe("did:ocss:test-va");
   });

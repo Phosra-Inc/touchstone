@@ -31,19 +31,20 @@ const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]", "::1"]);
  * Validate + normalize an enclave base URL. HTTPS is required for any non-loopback
  * host (an assessor probing a real provider must not send its inputs in the clear);
  * plain http is tolerated only for loopback so the suite can run against a local
- * fixture server in tests/CI.
+ * fixture server in tests/CI. `label` names the offending config surface in the
+ * error (default: --enclave-url; the platform-oauth config reuses the same rule).
  */
-export function normalizeEnclaveUrl(raw: string): URL {
+export function normalizeEnclaveUrl(raw: string, label = "--enclave-url"): URL {
   let url: URL;
   try {
     url = new URL(raw);
   } catch {
-    throw new Error(`--enclave-url is not a valid URL: ${raw}`);
+    throw new Error(`${label} is not a valid URL: ${raw}`);
   }
   const isLoopback = LOOPBACK_HOSTS.has(url.hostname);
   if (url.protocol !== "https:" && !(url.protocol === "http:" && isLoopback)) {
     throw new Error(
-      `--enclave-url must be https (got ${url.protocol}//). Plain http is allowed only for loopback hosts.`,
+      `${label} must be https (got ${url.protocol}//). Plain http is allowed only for loopback hosts.`,
     );
   }
   return url;

@@ -11,7 +11,13 @@ the OCSS reference implementation (`@openchildsafety/ocss`).
 
 ## Assertions
 - **A1** closed-enum fail-closed · **A2** content-free signal lane · **A5** minimization
-  attestation (salted-HMAC Merkle) · **A7** attestation-fail → suspend — **passable today**.
+  attestation (salted-HMAC Merkle) · **A7** attestation-fail → suspend — **passable today**
+  against a provider enclave.
+- **A8** profiles-child-only (EXT-04 §3.3.1 / EXT04-CN-09): the platform's OAuth profiles
+  leg returns the authenticated account's **child profiles only** — exactly `[]` for an
+  account with none, and **never** the account holder or a placeholder ("Account") entry —
+  **passable today** against a platform OAuth target (`--platform-oauth`); `pending` when
+  no platform target is configured.
 - **A3 / A4 / A6** — declared `pending` (consent infra / capability endpoint / advocate lane).
 
 ## Install
@@ -40,6 +46,28 @@ The canonical bin is **`provider-harness`**. `ocss-harness` is kept as a back-co
   GET  {url}/buildinfo  -> { "build_hash": string, "suite_version": string }
   POST {url}/classify   (JSON ClassifyInput + { "upstream_attestation": <state> })
                         -> ClassifyOutput  ({ "kind": "signal" | "rejected" | "suspended", ... })
+  ```
+- **`--platform-oauth <config.json>`** — the **platform-profiles** target (A8): drive the
+  platform's hosted OAuth surface (authorize → token → profiles) with its **declared test
+  accounts** and check the EXT-04 §3.3.1 profiles contract. The config declares the three
+  leg URLs, the registered `redirect_uri`, and the test accounts (`no_children` is REQUIRED
+  for A8 — a target that declares none errors and cannot attest; `with_children` is optional
+  and adds the child-semantics lane). Account selection rides the authorize query string via
+  `authorize_params` (whatever the platform's machine-drivable test lane keys on); the
+  harness always sends `redirect_uri`, `state`, and `decision=approve`. HTTPS required for
+  non-loopback hosts, as with `--enclave-url`.
+
+  ```json
+  {
+    "authorize_url": "https://platform.example/api/ocss/authorize",
+    "token_url":     "https://platform.example/api/ocss/token",
+    "profiles_url":  "https://platform.example/api/ocss/profiles",
+    "redirect_uri":  "https://harness.example/callback",
+    "accounts": {
+      "no_children":   { "authorize_params": { "account": "e2e-no-children" } },
+      "with_children": { "authorize_params": { "account": "e2e-with-children" } }
+    }
+  }
   ```
 
 ## Develop (from a clone)

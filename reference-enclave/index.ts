@@ -1,5 +1,6 @@
 import type { EnclaveUnderTest, ClassifyInput, ClassifyOutput, UpstreamAttestation } from "../src/contract/enclave.js";
 import { buildMinimization } from "../src/merkle.js";
+import { SUITE_VERSION } from "../src/assertions/registry.js";
 import { vocab } from "../src/crypto-adapter.js";
 import { createHash } from "node:crypto";
 
@@ -9,7 +10,7 @@ class ReferenceEnclave implements EnclaveUnderTest {
   private attestationValid = true;
 
   buildInfo() {
-    return { build_hash: BUILD_HASH, suite_version: "ocss-provider-harness/v0" };
+    return { build_hash: BUILD_HASH, suite_version: SUITE_VERSION };
   }
 
   setUpstreamAttestation(state: UpstreamAttestation | "invalid" | "expired"): void {
